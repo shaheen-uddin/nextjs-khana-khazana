@@ -1,6 +1,5 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import connectMongo from "./dbConnect/connectMongo";
 import Navbar from "./components/Navbar";
 
 const inter = Poppins({
@@ -14,7 +13,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  await connectMongo();
   return (
     <html lang="en">
       <body className={inter.className}>
