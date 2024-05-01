@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import AuthProvider from "./provider/AuthProvider";
 
 const inter = Poppins({
   subsets: ["latin"],
@@ -15,10 +16,12 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        {children}
-      </body>
+      <AuthProvider>
+        <body className={inter.className}>
+          <Navbar />
+          {children}
+        </body>
+      </AuthProvider>
     </html>
   );
 }

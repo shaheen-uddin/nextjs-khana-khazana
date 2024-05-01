@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { doLogin } from "@/app/actions";
+import useAuth from "@/app/hooks/useAuth";
 
 export default function LoginForm() {
   const [error, setError] = useState("");
   const router = useRouter();
+  const { setAuth } = useAuth();
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -15,6 +17,7 @@ export default function LoginForm() {
       console.log(formData);
       const userFound = await doLogin(formData);
       if (userFound) {
+        setAuth(userFound);
         router.push("/");
       }
     } catch (err) {

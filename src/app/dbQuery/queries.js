@@ -12,8 +12,11 @@ async function getAllRecipes() {
 
 async function getRecipeById(id) {
   await connectMongo();
+  if (!mongoose.Types.ObjectId.isValid(id)) return false;
   const recipe = await recipeModel.findById(id);
   return recipe;
+
+  return null;
 }
 
 async function getRecipeCategories() {
