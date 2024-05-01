@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { doLogin } from "@/app/actions";
 import useAuth from "@/app/hooks/useAuth";
 
