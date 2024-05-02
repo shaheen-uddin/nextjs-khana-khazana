@@ -1,45 +1,60 @@
-export default function ActionButtons() {
+"use client";
+
+import { FaRegHeart } from "react-icons/fa";
+import { GrShareOption } from "react-icons/gr";
+import useAuth from "@/app/hooks/useAuth";
+import { useEffect, useState, useTransition } from "react";
+import { addRemodeFavourite } from "@/app/actions";
+import { useRouter } from "next/navigation";
+
+export default function ActionButtons({ id }) {
+  const { auth } = useAuth();
+  const [favourite, setFovourite] = useState(null);
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  console.log(favourite);
+
+  console.log("auth in actionButton: ", auth);
+  console.log("recipeId: ", id);
+  console.log("auth?.favourites.includes(id): ", auth?.favourites.includes(id));
+  console.log("favourite,", favourite);
+
+  useEffect(() => {
+    setFovourite(auth?.favourites.includes(id));
+  }, [id]);
+
+  const toggleFavourite = async () => {
+    if (auth) {
+      await addRemodeFavourite(auth?.id, id);
+      setFovourite(!favourite);
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <div className="flex gap-4 justify-end">
-      <div className="flex gap-2 text-gray-600 cursor-pointer hover:text-[#eb4a36]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="icon icon-tabler icons-tabler-outline icon-tabler-heart"
+      <div className="">
+        <button
+          className={`flex items-center gap-2 text-gray-600 cursor-pointer hover:text-[#eb4a36] ${
+            favourite && "text-[#eb4a36]"
+          }`}
+          onClick={() =>
+            startTransition(() => {
+              toggleFavourite();
+            })
+          }
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-        </svg>
-        <span>Favourite</span>
+          <FaRegHeart className="pt-0.5 text-lg" />
+          <span>Favourite</span>
+        </button>
       </div>
 
-      <div className="flex gap-2 text-gray-600 cursor-pointer hover:text-[#0E79F6]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-          <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-          <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-          <path d="M8.7 10.7l6.6 -3.4" />
-          <path d="M8.7 13.3l6.6 3.4" />
-        </svg>
-        <span>Share</span>
+      <div>
+        <button className="flex items-center gap-2 text-gray-600 cursor-pointer hover:text-[#0E79F6]">
+          <GrShareOption />
+          <span>Share</span>
+        </button>
       </div>
     </div>
   );

@@ -46,6 +46,29 @@ async function findUserByCredentials(credential) {
   return null;
 }
 
+async function updateFovourites(userId, recipeId) {
+  await connectMongo();
+  const user = await userModel.findById(userId);
+  console.log("found user: ", user);
+  console.log("recipe id, ", typeof recipeId);
+
+  if (user) {
+    let recipeIdExists = user.favourites.includes(recipeId);
+    console.log("recipie status, ", recipeIdExists);
+    if (recipeIdExists) {
+      const index = user.favourites.indexOf(recipeId);
+      if (index) {
+        user.favourites.splice(index, 1);
+      }
+      console.log("after recipe id removal, ", user.favourites);
+    } else {
+      user.favourites.push(recipeId);
+      console.log("recipie status, else block ", recipeId);
+    }
+    user.save();
+  }
+}
+
 export {
   getAllRecipes,
   getRecipeById,
@@ -53,4 +76,5 @@ export {
   getRecipesByCategory,
   createUser,
   findUserByCredentials,
+  updateFovourites,
 };

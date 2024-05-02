@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function RecipeCard({ recipe }) {
-  const { base64 } = await getBlurData(recipe?.thumbnail);
+  // const { base64 } = await getBlurData(recipe?.thumbnail);
   return (
     <div className="card">
       <Link href={`/details/${recipe?._id.toString()}`}>
@@ -13,8 +13,8 @@ export default async function RecipeCard({ recipe }) {
           width={800}
           height={800}
           alt="Recipe Image"
-          placeholder="blur"
-          blurDataURL={base64}
+          /*  placeholder="blur"
+          blurDataURL={base64} */
         />
         <h4 className="my-2">{recipe?.name}</h4>
         <div className="py-2 flex justify-between text-xs text-gray-500">

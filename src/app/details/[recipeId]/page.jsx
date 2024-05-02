@@ -109,7 +109,7 @@ export default async function RecipeDetailsPage({ params: { recipeId } }) {
                   <p className="text-gray-500 text-sm">{recipe?.serves}</p>
                 </div>
               </div>
-              <ActionButtons />
+              <ActionButtons id={recipe?._id.toString()} />
             </div>
           </div>
 

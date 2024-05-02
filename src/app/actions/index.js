@@ -1,8 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createUser } from "../dbQuery/queries";
+import { createUser, updateFovourites } from "../dbQuery/queries";
 import { findUserByCredentials } from "../dbQuery/queries";
+import { revalidatePath } from "next/cache";
 
 async function registerUser(formData) {
   const user = Object.fromEntries(formData);
@@ -21,5 +22,14 @@ async function doLogin(formData) {
     throw error;
   }
 }
+async function addRemodeFavourite(useerId, recipeId) {
+  try {
+    console.log("recipe id in action", recipeId);
+    await updateFovourites(useerId, recipeId);
+  } catch (error) {
+    throw error;
+  }
+  revalidatePath(`/details/${recipeId}`);
+}
 
-export { registerUser, doLogin };
+export { registerUser, doLogin, addRemodeFavourite };
