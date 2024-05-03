@@ -3,6 +3,11 @@ import HeroSection from "./components/landing/HeroSection";
 import RecipieCategories from "./components/landing/RecipieCategories";
 import RecipeList from "./components/landing/RecipeList";
 
+export const metadata = {
+  title: "Khana Khazana | Home Page",
+  description: "It is a home page",
+};
+
 export default function Home() {
   return (
     <main>
