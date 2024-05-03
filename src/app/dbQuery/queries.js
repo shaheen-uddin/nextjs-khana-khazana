@@ -14,7 +14,7 @@ async function getRecipeById(id) {
   await connectMongo();
   if (!mongoose.Types.ObjectId.isValid(id)) return false;
   const recipe = await recipeModel.findById(id);
-  return recipe;
+  if (recipe) return recipe;
 
   return null;
 }
@@ -49,27 +49,27 @@ async function findUserByCredentials(credential) {
 async function updateFovourites(userId, recipeId) {
   await connectMongo();
   const user = await userModel.findById(userId);
-  console.log("found user: ", user);
-  console.log("recipe id, ", typeof recipeId);
+  //console.log("found user: ", user);
+  // console.log("recipe id, ", typeof recipeId);
 
   if (user) {
     let recipeIdExists = user.favourites.includes(recipeId);
-    console.log("recipie status, ", recipeIdExists);
+    // console.log("recipie status, ", recipeIdExists);
     if (recipeIdExists) {
       const index = user.favourites.indexOf(recipeId);
       if (index) {
         user.favourites.splice(index, 1);
       }
-      console.log("after recipe id removal, ", user.favourites);
+      //  console.log("after recipe id removal, ", user.favourites);
     } else {
       user.favourites.push(recipeId);
-      console.log("recipie status, else block ", recipeId);
+      // console.log("recipie status, else block ", recipeId);
     }
     const updatedUser = await user.save();
     if (updatedUser) {
       const cleanObject = transformObjectId(updatedUser);
-      console.log("updated user: db :", updatedUser);
-      console.log("Clean Obj: ", transformObjectId(cleanObject._doc));
+      // console.log("updated user: db :", updatedUser);
+      // console.log("Clean Obj: ", transformObjectId(cleanObject._doc));
       return transformObjectId(cleanObject._doc);
     }
   }
