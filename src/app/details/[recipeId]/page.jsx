@@ -3,6 +3,7 @@ import ActionButtons from "../../components/details/ActionButtons";
 import HowToMake from "../../components/details/HowToMake";
 import { getRecipeById } from "@/app/dbQuery/queries";
 import getBlurData from "@/uitls/blur-generator";
+import Link from "next/link";
 
 export default async function RecipeDetailsPage({ params: { recipeId } }) {
   const recipe = await getRecipeById(recipeId);
@@ -32,7 +33,9 @@ export default async function RecipeDetailsPage({ params: { recipeId } }) {
                 {recipe?.name}
               </h2>
               <p className="text-xs text-[#eb4a36] italic my-2">
-                {recipe?.category}
+                <Link href={`/category/${recipe?.category}`}>
+                  {recipe?.category}
+                </Link>
               </p>
               <p className="text-gray-600 text-sm my-6 leading-6">
                 {recipe?.description}
