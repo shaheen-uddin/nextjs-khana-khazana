@@ -65,10 +65,20 @@ async function updateFovourites(userId, recipeId) {
       user.favourites.push(recipeId);
       console.log("recipie status, else block ", recipeId);
     }
-    user.save();
+    const updatedUser = await user.save();
+    if (updatedUser) {
+      const cleanObject = transformObjectId(updatedUser);
+      console.log("updated user: db :", updatedUser);
+      console.log("Clean Obj: ", transformObjectId(cleanObject._doc));
+      return transformObjectId(cleanObject._doc);
+    }
   }
 }
-
+async function getUser(id) {
+  await connectMongo();
+  const user = await userModel.findById(id).lean();
+  return transformObjectId(user);
+}
 export {
   getAllRecipes,
   getRecipeById,
@@ -77,4 +87,5 @@ export {
   createUser,
   findUserByCredentials,
   updateFovourites,
+  getUser,
 };

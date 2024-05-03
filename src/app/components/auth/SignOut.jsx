@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function SignOut() {
   const { auth, setAuth } = useAuth();
-  console.log(auth);
+  // console.log(auth);
   const router = useRouter();
 
   const logout = () => {

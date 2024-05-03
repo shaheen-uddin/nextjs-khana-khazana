@@ -1,9 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createUser, updateFovourites } from "../dbQuery/queries";
+import { createUser, getUser, updateFovourites } from "../dbQuery/queries";
 import { findUserByCredentials } from "../dbQuery/queries";
 import { revalidatePath } from "next/cache";
+import { transformObjectId } from "@/uitls/data-util";
 
 async function registerUser(formData) {
   const user = Object.fromEntries(formData);
@@ -22,14 +23,25 @@ async function doLogin(formData) {
     throw error;
   }
 }
-async function addRemodeFavourite(useerId, recipeId) {
+async function addRemoveUser(useerId, recipeId) {
   try {
-    console.log("recipe id in action", recipeId);
-    await updateFovourites(useerId, recipeId);
+    // console.log("recipe id in action", recipeId);
+    const user = await updateFovourites(useerId, recipeId);
+    if (user) {
+      return user;
+    }
   } catch (error) {
     throw error;
   }
   revalidatePath(`/details/${recipeId}`);
 }
+async function findUser(id) {
+  try {
+    const user = await getUser(id);
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 
-export { registerUser, doLogin, addRemodeFavourite };
+export { registerUser, doLogin, addRemoveUser, findUser };
