@@ -30,8 +30,8 @@ export default function ActionButtons({ id }) {
   /*   console.log("auth in actionButton: ", auth);
   console.log("recipeId: ", id);
   */
-  console.log("auth?.favourites.includes(id): ", auth?.favourites.includes(id));
-  console.log("favourite,", favourite);
+  /*   console.log("auth?.favourites.includes(id): ", auth?.favourites.includes(id));
+  console.log("favourite,", favourite); */
 
   useEffect(() => {
     setFovourite(auth?.favourites.includes(id));
