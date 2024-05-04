@@ -1,16 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import SignOut from "./auth/SignOut";
+import LogoImg from "@/../public/logo.png";
 
 export default function Navbar() {
   return (
     <nav>
       <div className="container flex justify-between py-6">
         <Link href="/">
-          <Image
+          <img
             src="/logo.png"
-            width={200}
-            height={200}
+          /*   width={200}
+            height={200} */
             alt="logo"
             className="object-cover h-[40px]"
           />

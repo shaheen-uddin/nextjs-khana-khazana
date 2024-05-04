@@ -2,6 +2,11 @@ import React from "react";
 import RecipeCard from "../../components/landing/RecipeCard";
 import { getRecipesByCategory } from "@/app/dbQuery/queries";
 
+export const metadata = {
+  title: "Recipe Category Page | Khanakhazana",
+  description: "The recipes of Khanakhaza application are shown according to a specific category.",
+};
+
 export default async function CategoryPage({ params: { categoryName } }) {
   let category = decodeURIComponent(categoryName);
   const recipes = await getRecipesByCategory(category);

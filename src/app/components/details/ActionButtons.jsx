@@ -17,6 +17,7 @@ import {
   EmailIcon,
   TwitterShareButton,
   TwitterIcon,
+  
 } from "react-share";
 
 export default function ActionButtons({ id }) {
@@ -25,13 +26,17 @@ export default function ActionButtons({ id }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [showSocialIcons, setShowSocialIcons] = useState(false);
-  const currentPageUrl = window.location.href;
   const pathName = usePathname();
-  console.log(pathName, currentPageUrl);
+  //const url = router.pathname;
+  const [url, setUrl] = useState("");
+  console.log( url);
 
 
   useEffect(() => {
     setFovourite(auth?.favourites.includes(id));
+    console.log("winnn",window.location.href)
+    setUrl(window.location.href);
+
   }, [id, auth]);
 
   const toggleFavourite = async () => {
@@ -83,19 +88,21 @@ export default function ActionButtons({ id }) {
 
       {showSocialIcons && (
         <div className="absolute right-0  top-full mt-2 w-44 rounded-md bg-white py-2 z-10 shadow-lg flex justify-evenly">
-          <FacebookShareButton url={currentPageUrl}>
-            <FacebookIcon size={36} round={true} />
-          </FacebookShareButton>
-          <WhatsappShareButton url={currentPageUrl}>
+         
+          <WhatsappShareButton url={url}>
             <WhatsappIcon size={36} round={true} />
           </WhatsappShareButton>
-          <EmailShareButton url={currentPageUrl}>
+          <EmailShareButton url={url}>
             <EmailIcon size={36} round={true} />
           </EmailShareButton>
-          <TwitterShareButton url={currentPageUrl}>
+          <TwitterShareButton url={url}>
             {/*  <TwitterIcon size={36} round={true} /> */}
             <FaXTwitter size={36} round={true} className="bg-gray-100" />
           </TwitterShareButton>
+          <FacebookShareButton url={url}>
+            <FacebookIcon size={36} round={true} />
+          </FacebookShareButton>
+          
         </div>
       )}
     </div>

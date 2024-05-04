@@ -1,5 +1,10 @@
 import { registerUser } from "@/app/actions";
 
+export const metadata = {
+  title: "Registration Page | Khanakhazana",
+  description: "This a registration page of Khanakhazana application",
+};
+
 export default function RegistrationForm() {
   return (
     <form className="login-form" action={registerUser}>
