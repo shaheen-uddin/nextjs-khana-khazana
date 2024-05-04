@@ -5,7 +5,7 @@ import { getRecipeById } from "@/app/dbQuery/queries";
 import getBlurData from "@/uitls/blur-generator";
 import Link from "next/link";
 
-
+//dynamic metadata
  export async function generateMetadata({ params: {recipeId}, searchParams }, parent) {
  const recipe = await getRecipeById(recipeId);
   return {
