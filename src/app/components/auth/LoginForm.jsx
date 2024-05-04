@@ -19,6 +19,8 @@ export default function LoginForm() {
       if (userFound) {
         setAuth(userFound);
         router.push("/");
+      } else {
+        setError("No user found by the email/password or both.");
       }
     } catch (err) {
       setError(err.message);
@@ -26,17 +28,17 @@ export default function LoginForm() {
   };
   return (
     <>
-      <div className="my-2 text-red-500">{error}</div>
+      <h3 className="my-2 font-mono text-red-500">{error}</h3>
 
       <form className="login-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email Address</label>
-          <input type="email" name="email" id="email" />
+          <input type="email" name="email" id="email" required />
         </div>
 
         <div>
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" />
+          <input type="password" name="password" id="password" required />
         </div>
 
         <button

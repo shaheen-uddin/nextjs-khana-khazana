@@ -18,7 +18,11 @@ async function doLogin(formData) {
     credential.email = formData.get("email");
     credential.password = formData.get("password");
     const found = await findUserByCredentials(credential);
-    return found;
+    if(found){
+
+      return found;
+    }
+    return null;
   } catch (error) {
     throw error;
   }

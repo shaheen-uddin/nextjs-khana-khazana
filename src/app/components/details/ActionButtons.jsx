@@ -7,6 +7,7 @@ import useAuth from "@/app/hooks/useAuth";
 import { useEffect, useState, useTransition } from "react";
 import { addRemoveUser, findUser } from "@/app/actions";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -25,13 +26,9 @@ export default function ActionButtons({ id }) {
   const [isPending, startTransition] = useTransition();
   const [showSocialIcons, setShowSocialIcons] = useState(false);
   const currentPageUrl = window.location.href;
-  //console.log(favourite);
+  const pathName = usePathname();
+  console.log(pathName, currentPageUrl);
 
-  /*   console.log("auth in actionButton: ", auth);
-  console.log("recipeId: ", id);
-  */
-  /*   console.log("auth?.favourites.includes(id): ", auth?.favourites.includes(id));
-  console.log("favourite,", favourite); */
 
   useEffect(() => {
     setFovourite(auth?.favourites.includes(id));

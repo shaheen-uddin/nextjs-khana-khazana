@@ -5,21 +5,21 @@ export default function RegistrationForm() {
     <form className="login-form" action={registerUser}>
       <div>
         <label htmlFor="fname">First Name</label>
-        <input type="text" name="firstName" id="fname" />
+        <input type="text" name="firstName" id="fname" required minlength="2" maxlength="60"/>
       </div>
 
       <div>
         <label htmlFor="lname">Last Name</label>
-        <input type="text" name="lastName" id="lname" />
+        <input type="text" name="lastName" id="lname" required  minlength="2" maxlength="60"/>
       </div>
       <div>
         <label htmlFor="email">Email Address</label>
-        <input type="email" name="email" id="email" />
+        <input type="email" name="email" id="email" required/>
       </div>
 
       <div>
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password" />
+        <input type="password" name="password" id="password" required />
       </div>
 
       <button
